@@ -87,7 +87,7 @@ function drawMatrix(matrix, offset, ctx = context) {
         ctx.fillRect(x + offset.x, y + offset.y, 1, 1)
 
         ctx.strokeStyle = "rgba(0,0,0,0.2)"
-        ctx.lineWidth = 0.07
+        ctx.lineWidth = 0.10
         ctx.strokeRect(x + offset.x, y + offset.y, 1, 1)
       }
     })
@@ -181,7 +181,7 @@ function arenaSweep() {
       arena.unshift(new Array(COLS).fill(0))
       y++ // supaya cek ulang baris yg diatas
     }
-    player.score += rowCount * 10
+    player.score += rowCount * 50
     updateScore()
     resolve()
   })
