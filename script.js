@@ -43,7 +43,7 @@ const arena = createMatrix(COLS, ROWS)
 const colors = [null, "#FF0D72", "#0DC2FF", "#0DFF72", "#F538FF", "#FF8E0D", "#FFE138", "#3877FF"]
 
 let dropCounter = 0
-const dropInterval = 1000
+const dropInterval = 300
 let lastTime = 0
 let paused = true
 let animationId
@@ -63,21 +63,28 @@ function getRandomPiece() {
 }
 
 function drawGrid() {
-  context.strokeStyle = "rgba(255,255,255,0.1)"
-  context.lineWidth = 0.05
+  context.strokeStyle = "rgba(0, 255, 255, 0.12)";
+  context.shadowColor = "rgba(0, 255, 255, 0.4)";
+  context.shadowBlur = 6;
+  context.lineWidth = 0.05;
+
   for (let x = 0; x <= COLS; x++) {
-    context.beginPath()
-    context.moveTo(x, 0)
-    context.lineTo(x, ROWS)
-    context.stroke()
+    context.beginPath();
+    context.moveTo(x, 0);
+    context.lineTo(x, ROWS);
+    context.stroke();
   }
+
   for (let y = 0; y <= ROWS; y++) {
-    context.beginPath()
-    context.moveTo(0, y)
-    context.lineTo(COLS, y)
-    context.stroke()
+    context.beginPath();
+    context.moveTo(0, y);
+    context.lineTo(COLS, y);
+    context.stroke();
   }
+
+  context.shadowBlur = 0; // reset
 }
+
 
 function drawMatrix(matrix, offset, ctx = context) {
   matrix.forEach((row, y) => {
@@ -246,13 +253,22 @@ function playerReset() {
 
   player.pos.y = 0
   player.pos.x = ((COLS / 2) | 0) - ((player.matrix[0].length / 2) | 0)
+
+  // === GAME OVER di sini ===
   if (collide(arena, player)) {
     arena.forEach((row) => row.fill(0))
     player.score = 0
     updateScore()
-    alert("Game Over!")
+
+    // SHOW PLAY AGAIN BUTTON
+    playAgainBtn.style.display = "block"
+
+    // Hapus alert biar UI lebih smooth
+    // alert("Game Over!")
+
     paused = true
     cancelAnimationFrame(animationId)
+    return
   }
 }
 
@@ -346,9 +362,24 @@ function resetGame() {
   draw()
 }
 
-document.getElementById("startBtn").addEventListener("click", startGame)
-document.getElementById("pauseBtn").addEventListener("click", pauseGame)
-document.getElementById("resetBtn").addEventListener("click", resetGame)
+const startBtn = document.getElementById("startBtnOverlay");
+
+startBtn.addEventListener("click", () => {
+  startGame();
+  startBtn.style.display = "none"; // hide only AFTER clicked
+});
+
+// PLAY AGAIN button (declare ONCE)
+const playAgainBtn = document.getElementById("playAgainBtn");
+playAgainBtn.style.display = "none"; // default hidden
+
+playAgainBtn.addEventListener("click", () => {
+  // resetGame sudah ada di script lo — panggil itu, lalu sembunyikan tombol
+  resetGame();
+  playAgainBtn.style.display = "none";
+  // optionally restart langsung:
+  startGame();
+});
 
 // Prevent page scrolling with arrow keys
 document.addEventListener("keydown", (event) => {
