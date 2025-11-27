@@ -19,20 +19,30 @@
         <i class="fas fa-cube"></i>
         TETRIS
       </h1>
-      <div class="score-display">
-        <span class="score-label">Score</span>
-        <span id="score" class="score-value">0</span>
-      </div>
-    </div>
-    
+      
 <div class="game-main">
 <div class="canvas-wrapper">
-  <button id="startBtnOverlay" class="start-overlay-btn">
-    <i class="fas fa-play"></i>
-    <span>Play</span>
+
+  <div id="timeContainer" class="score-display time-box">
+  <span id="timeDisplay" class="score-value">00:00</span>
+</div>
+
+<div id="scoreContainer" class="score-display score-box">
+  <span id="score" class="score-value">0</span>
+</div>
+
+  <button id="timerMenu" class="start-overlay-btn">
+    <span>Timer</span>
   </button>
 
-  <button id="playAgainBtn" class="start-overlay-btn" style="display: none;">
+<div id="timerOptions" class="start-overlay-btn" style="display:none; flex-direction:column; gap:10px; padding:20px;">
+  <button class="timer-btn" data-time="0">FREE</button>
+  <button class="timer-btn" data-time="60">1 MIN</button>
+  <button class="timer-btn" data-time="180">3 MIN</button>
+  <button class="timer-btn" data-time="300">5 MIN</button>
+</div>
+
+<button id="playAgainBtn" class="start-overlay-btn" style="display:none;">
   <i class="fas fa-redo"></i>
   <span>Play Again</span>
 </button>
