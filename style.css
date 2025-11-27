@@ -588,3 +588,54 @@ canvas {
 .start-overlay-btn:hover {
   background: rgba(255, 255, 255, 0.15);
 }
+.timer-btn {
+  background: rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.2);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.timer-btn:hover {
+  background: rgba(255,255,255,0.15);
+}
+#timeDisplay {
+  min-width: 70px;
+  text-align: right;
+}
+.canvas-wrapper {
+  position: relative !important;
+}
+
+.time-box,
+.score-box {
+  position: absolute !important;
+  padding: 2px 6px !important; /* lebih kecil */
+  border-radius: 4px !important; /* sedikit mengecil */
+  gap: 4px !important;
+  display: relative;
+  align-items: relative;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  border: 0.5px solid rgba(255,255,255,0.15); /* border lebih tipis */
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+}
+
+/* Time kiri */
+.time-box {
+  top: 10px;
+  left: 50%;
+  height: 10px; /* lebih kecil */
+  transform: translateX(calc(-100% - 5px));
+}
+
+/* Score kanan */
+.score-box {
+  top: 10px;
+  left: 40%;
+  height: 10px; /* lebih kecil */
+  transform: translateX(50px);
+}
